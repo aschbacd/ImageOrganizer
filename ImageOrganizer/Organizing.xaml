@@ -1,0 +1,19 @@
+﻿<Window x:Class="ImageOrganizer.Organizing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageOrganizer"
+        mc:Ignorable="d"
+        Title="Organizing..." MinHeight="300" MinWidth="450" Height="170.586" Width="0">
+    <Grid>
+        <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Files:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelElapsedTime" Content="" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Right"/>
+        <Label x:Name="labelFiles" Content="" Margin="0,41,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" HorizontalContentAlignment="Right"/>
+        <Label x:Name="labelCurrentFile" Content="" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="progressBarCopy" Height="27" Margin="10,149,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonCancelCopy" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="20" VerticalAlignment="Bottom" Click="buttonCancelCopy_Click"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,31 @@
+﻿<Window x:Class="ImageOrganizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageOrganizer"
+        mc:Ignorable="d"
+        Title="Image Organizer" MinHeight="615" MinWidth="460" Height="660" Width="0">
+    <Grid>
+        <Grid Margin="0,0,0,352" Background="#FFF0F0F0">
+            <Label Content="Source Folder:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxSourceFolder" Height="23" Margin="10,41,105,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="buttonBrowseSourceFolder" Content="Browse..." HorizontalAlignment="Right" Margin="0,41,10,0" VerticalAlignment="Top" Width="90" Height="23" Click="buttonBrowseSourceFolder_Click"/>
+            <Label Content="Destination Folder:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxDestinationFolder" Height="23" Margin="10,100,105,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="buttonBrowseDestinationFolder" Content="Browse..." HorizontalAlignment="Right" Margin="0,100,10,0" VerticalAlignment="Top" Width="90" Height="23" Click="buttonBrowseDestinationFolder_Click"/>
+            <Label Content="Error Folder:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxErrorFolder" Height="23" Margin="10,159,105,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="buttonBrowseErrorFolder" Content="Browse..." Margin="0,159,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="90" Click="buttonBrowseErrorFolder_Click"/>
+            <ProgressBar x:Name="progressBarScan" Height="23" Margin="10,187,10,0" VerticalAlignment="Top"/>
+            <Button x:Name="buttonScan" Content="Scan" Margin="10,215,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="200" Click="buttonScan_Click"/>
+            <Button x:Name="buttonStart" Content="Start" Margin="0,215,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="200" Click="buttonStart_Click"/>
+            <CheckBox x:Name="checkBoxAutoStart" Content="Automatically start after scanning" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Checked="checkBoxAutoStart_Checked" Unchecked="checkBoxAutoStart_Unchecked"/>
+        </Grid>
+        <ListBox x:Name="listBoxScan" Margin="10,299,10,10"/>
+        <Label Content="Directory Count:" HorizontalAlignment="Left" Margin="10,268,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelCount" Content="" HorizontalAlignment="Left" Margin="106,268,0,0" VerticalAlignment="Top"/>
+        
+
+    </Grid>
+</Window>
