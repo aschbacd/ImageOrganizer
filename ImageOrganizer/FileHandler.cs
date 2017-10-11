@@ -179,7 +179,7 @@ namespace ImageOrganizer
                         string second = date.Second.ToString("d2");
 
                         // --------------- FINAL PAHTS --------------- //
-                        string finalDestPath = destinationFolder + "\\" + year + "\\" + month + " - " + date.ToString("MMMMMMMMMM"); // final path
+                        string finalDestPath = destinationFolder + "\\" + year + "\\" + month + " " + date.ToString("MMMMMMMMMM"); // final path
                         string finalFileName = "IMG_" + year + month + day + "_" + hour + minute + second + "." + extension; // final filename
 
                         // --------------- COPYING --------------- //
@@ -245,7 +245,7 @@ namespace ImageOrganizer
 
 
             // --------------- COPYING --------------- //
-            string errorFilename = "error_" + error + "." + extension;
+            string errorFilename = "error_" + error + "_" + fileName + "." + extension;
 
             error++;
 
