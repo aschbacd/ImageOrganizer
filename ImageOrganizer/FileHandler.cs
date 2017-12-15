@@ -200,7 +200,7 @@ namespace ImageOrganizer
                             if (!System.IO.Directory.Exists(errorPathDuplicate))
                                 System.IO.Directory.CreateDirectory(errorPathDuplicate);
 
-                            string finalDestPath2 = errorPathDuplicate + "\\" + date.Year + "\\" + month + " - " + date.ToString("MMMMMMMMMM");
+                            string finalDestPath2 = errorPathDuplicate;
                             string finalFileName2 = "duplication_error_" + duperror + "_" + finalFileName;
 
                             duperror++;
