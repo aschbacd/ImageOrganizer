@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Security.Cryptography;
 
 namespace ImageOrganizer
 {
@@ -15,6 +16,7 @@ namespace ImageOrganizer
         // ------------------------------ FIELDS ------------------------------ //
         private BackgroundWorker worker;
         private List<Dir> directories;
+        private string duplicationMode;
 
         public double maximum;
         private double progress;
@@ -27,9 +29,10 @@ namespace ImageOrganizer
         string datenow;
 
         // ------------------------------ CONSTRUCTOR ------------------------------ //
-        public FileHandler(BackgroundWorker worker, string s, string d, string e)
+        public FileHandler(BackgroundWorker worker, string s, string d, string e, string duplicationMode)
         {
             this.worker = worker;
+            this.duplicationMode = duplicationMode;
 
             directories = new List<Dir>();
 
@@ -195,23 +198,120 @@ namespace ImageOrganizer
                         // --------------- DUPLICATES --------------- //
                         else
                         {
+                            // duplication paths with / without checksum
                             string errorPathDuplicate = errorFolder + "\\" + "Duplicates_" + datenow;
+                            string errorPathDuplicateCRC = errorFolder + "\\" + "Duplicates_CRC_" + datenow;
 
-                            if (!System.IO.Directory.Exists(errorPathDuplicate))
-                                System.IO.Directory.CreateDirectory(errorPathDuplicate);
-
-                            string finalDestPath2 = errorPathDuplicate;
+                            // duplicate file name
                             string finalFileName2 = "duplication_error_" + duperror + "_" + finalFileName;
-
                             duperror++;
 
-                            string sourceFile2 = System.IO.Path.Combine(source, fileName + "." + extension);
-                            string destFile2 = System.IO.Path.Combine(finalDestPath2, finalFileName2);
+                            // CRC enabled
+                            if (duplicationMode != "none")
+                            {
+                                if (!System.IO.Directory.Exists(errorPathDuplicateCRC))
+                                    System.IO.Directory.CreateDirectory(errorPathDuplicateCRC);
 
-                            if (!System.IO.Directory.Exists(finalDestPath2))
-                                System.IO.Directory.CreateDirectory(finalDestPath2);
+                                string sourceHash = "";
+                                string destHash = "";
 
-                            System.IO.File.Copy(sourceFile2, destFile2, true);
+                                switch (duplicationMode)
+                                {
+                                    // MD5
+                                    case "md5":
+                                        using (var method = MD5.Create())
+                                        {
+                                            using (var stream = File.OpenRead(sourceFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                sourceHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+
+                                            using (var stream = File.OpenRead(destFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                destHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+                                        }
+                                        break;
+                                    // SHA1
+                                    case "sha1":
+                                        using (var method = SHA1.Create())
+                                        {
+                                            using (var stream = File.OpenRead(sourceFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                sourceHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+
+                                            using (var stream = File.OpenRead(destFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                destHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+                                        }
+                                        break;
+                                    // SHA256
+                                    case "sha256":
+                                        using (var method = SHA256.Create())
+                                        {
+                                            using (var stream = File.OpenRead(sourceFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                sourceHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+
+                                            using (var stream = File.OpenRead(destFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                destHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+                                        }
+                                        break;
+                                    // SHA512
+                                    case "sha512":
+                                        using (var method = SHA512.Create())
+                                        {
+                                            using (var stream = File.OpenRead(sourceFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                sourceHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+
+                                            using (var stream = File.OpenRead(destFile))
+                                            {
+                                                var hash_tmp = method.ComputeHash(stream);
+                                                destHash = BitConverter.ToString(hash_tmp).Replace("-", "").ToLowerInvariant();
+                                            }
+                                        }
+                                        break;
+                                }
+
+                                // time and checksum are equal -> same file
+                                if(sourceHash == destHash)
+                                {
+                                    string destFile2 = System.IO.Path.Combine(errorPathDuplicateCRC, finalFileName2);
+                                    System.IO.File.Copy(sourceFile, destFile2, true);
+                                }
+                                else
+                                {
+                                    // time only duplicates
+                                    if (!System.IO.Directory.Exists(errorPathDuplicate))
+                                        System.IO.Directory.CreateDirectory(errorPathDuplicate);
+
+                                    string destFile2 = System.IO.Path.Combine(errorPathDuplicate, finalFileName2);
+                                    System.IO.File.Copy(sourceFile, destFile2, true);
+                                }
+                            }
+                            else
+                            {
+                                // time only duplicates
+                                if (!System.IO.Directory.Exists(errorPathDuplicate))
+                                    System.IO.Directory.CreateDirectory(errorPathDuplicate);
+
+                                string destFile2 = System.IO.Path.Combine(errorPathDuplicate, finalFileName2);
+                                System.IO.File.Copy(sourceFile, destFile2, true);
+                            }
                         }
 
                         // report progress --> progress bar

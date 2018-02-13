@@ -38,7 +38,7 @@ namespace ImageOrganizer
 
         FileHandler fileHandler;
 
-        public Organizing(string s, string d, string e, List<Dir> dir, double fc)
+        public Organizing(string s, string d, string e, List<Dir> dir, double fc, string duplicationMode)
         {
             InitializeComponent();
 
@@ -82,7 +82,7 @@ namespace ImageOrganizer
             timer.Start();
 
             // set fileHandler
-            fileHandler = new FileHandler(copyworker, sourceFolder, destinationFolder, errorFolder);
+            fileHandler = new FileHandler(copyworker, sourceFolder, destinationFolder, errorFolder, duplicationMode);
         }
 
         void Timer_Tick(object sender, EventArgs e)

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Image Organizer" MinHeight="615" MinWidth="460" Height="660" Width="0">
     <Grid>
-        <Grid Margin="0,0,0,352" Background="#FFF0F0F0">
+        <Grid Background="#FFF0F0F0" Height="339" VerticalAlignment="Top">
             <Label Content="Source Folder:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="textBoxSourceFolder" Height="23" Margin="10,41,105,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <Button x:Name="buttonBrowseSourceFolder" Content="Browse..." HorizontalAlignment="Right" Margin="0,41,10,0" VerticalAlignment="Top" Width="90" Height="23" Click="buttonBrowseSourceFolder_Click"/>
@@ -21,11 +21,15 @@
             <Button x:Name="buttonScan" Content="Scan" Margin="10,215,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="200" Click="buttonScan_Click"/>
             <Button x:Name="buttonStart" Content="Start" Margin="0,215,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="200" Click="buttonStart_Click"/>
             <CheckBox x:Name="checkBoxAutoStart" Content="Automatically start after scanning" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Checked="checkBoxAutoStart_Checked" Unchecked="checkBoxAutoStart_Unchecked"/>
+            <Label Content="Detect duplicates using checksums:" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="radioButtonChecksumNone" Content="Do not detect" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" GroupName="radioButtonChecksum"/>
+            <RadioButton x:Name="radioButtonChecksumMD5" Content="MD5" HorizontalAlignment="Left" Margin="107,306,0,0" VerticalAlignment="Top" GroupName="radioButtonChecksum" IsChecked="True"/>
+            <RadioButton x:Name="radioButtonChecksumSHA1" Content="SHA1" HorizontalAlignment="Left" Margin="157,306,0,0" VerticalAlignment="Top" GroupName="radioButtonChecksum"/>
+            <RadioButton x:Name="radioButtonChecksumSHA256" Content="SHA256" HorizontalAlignment="Left" Margin="210,306,0,0" VerticalAlignment="Top" GroupName="radioButtonChecksum" IsChecked="True"/>
+            <RadioButton x:Name="radioButtonChecksumSHA512" Content="SHA512" HorizontalAlignment="Left" Margin="276,306,0,0" VerticalAlignment="Top" GroupName="radioButtonChecksum"/>
         </Grid>
-        <ListBox x:Name="listBoxScan" Margin="10,299,10,10"/>
-        <Label Content="Directory Count:" HorizontalAlignment="Left" Margin="10,268,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelCount" Content="" HorizontalAlignment="Left" Margin="106,268,0,0" VerticalAlignment="Top"/>
-        
-
+        <ListBox x:Name="listBoxScan" Margin="10,375,10,10"/>
+        <Label Content="Directory Count:" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelCount" Content="" HorizontalAlignment="Left" Margin="106,344,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

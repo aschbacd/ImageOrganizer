@@ -100,7 +100,16 @@ namespace ImageOrganizer
                         worker.RunWorkerAsync();
 
                         // set file handler
-                        fileHandler = new FileHandler(worker, sourceFolder, destinationFolder, errorFolder);
+                        string duplicationExtra = "none";
+                        if (radioButtonChecksumMD5.IsChecked == true)
+                            duplicationExtra = "md5";
+                        else if (radioButtonChecksumSHA1.IsChecked == true)
+                            duplicationExtra = "sha1";
+                        else if (radioButtonChecksumSHA256.IsChecked == true)
+                            duplicationExtra = "sha256";
+                        else if (radioButtonChecksumSHA512.IsChecked == true)
+                            duplicationExtra = "sha512";
+                        fileHandler = new FileHandler(worker, sourceFolder, destinationFolder, errorFolder, duplicationExtra);
 
                         // disable input
                         buttonBrowseSourceFolder.IsEnabled = false;
@@ -162,7 +171,16 @@ namespace ImageOrganizer
 
             if (checkBoxAutoStart.IsChecked == true && directories.Count > 0)
             {
-                Organizing organizing = new Organizing(sourceFolder, destinationFolder, errorFolder, directories, fileHandler.maximum);
+                string duplicationExtra = "none";
+                if (radioButtonChecksumMD5.IsChecked == true)
+                    duplicationExtra = "md5";
+                else if (radioButtonChecksumSHA1.IsChecked == true)
+                    duplicationExtra = "sha1";
+                else if (radioButtonChecksumSHA256.IsChecked == true)
+                    duplicationExtra = "sha256";
+                else if (radioButtonChecksumSHA512.IsChecked == true)
+                    duplicationExtra = "sha512";
+                Organizing organizing = new Organizing(sourceFolder, destinationFolder, errorFolder, directories, fileHandler.maximum, duplicationExtra);
                 organizing.ShowDialog();
             }
 
@@ -186,7 +204,16 @@ namespace ImageOrganizer
                 {
                     if (directories.Count > 0)
                     {
-                        Organizing organizing = new Organizing(sourceFolder, textBoxDestinationFolder.Text, textBoxErrorFolder.Text, directories, fileHandler.maximum);
+                        string duplicationExtra = "none";
+                        if (radioButtonChecksumMD5.IsChecked == true)
+                            duplicationExtra = "md5";
+                        else if (radioButtonChecksumSHA1.IsChecked == true)
+                            duplicationExtra = "sha1";
+                        else if (radioButtonChecksumSHA256.IsChecked == true)
+                            duplicationExtra = "sha256";
+                        else if (radioButtonChecksumSHA512.IsChecked == true)
+                            duplicationExtra = "sha512";
+                        Organizing organizing = new Organizing(sourceFolder, textBoxDestinationFolder.Text, textBoxErrorFolder.Text, directories, fileHandler.maximum, duplicationExtra);
                         organizing.ShowDialog();
                     }
                     else
